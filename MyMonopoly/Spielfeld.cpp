@@ -27,7 +27,7 @@ Spielfeld::Spielfeld() {
 
 		for (int i = 0; i < 40; i++) {
 			string lines;
-			string lines2;
+			string lines2;hure
 
 			
 			getline(streets, lines);
