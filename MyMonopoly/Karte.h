@@ -8,11 +8,14 @@ using namespace std;
 class Karte {
 public:
     Karte();
-    Karte(string sname, string farbe, int kaufpreis, int miete);
     ~Karte();
+    Karte(string sname, string farbe, int kaufpreis, int miete);
+
     string streetName;
     string farbe;
+
     int preis;
     int Miete;
+
     Spieler besitzer;
 };

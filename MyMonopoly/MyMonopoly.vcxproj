@@ -140,6 +140,8 @@
     <ClInclude Include="Spielfeld.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Farbe" />
+    <None Include="Miete" />
     <None Include="Preise" />
     <None Include="Strassennamen" />
   </ItemGroup>

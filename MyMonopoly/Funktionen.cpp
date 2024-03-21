@@ -15,6 +15,7 @@ void startGame() {
 	cout << "Willkommen bei Monopoly!\n";
 	Spielfeld start;
 	start.sAnzahl();
+	start.Logik();
 }
 
 

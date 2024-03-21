@@ -16,5 +16,5 @@ public:
     void playerErstellen();
     int würfeln();
     void getBesitzer();
-    void kaufen();
+    void kaufen(string spieler, string sname, int preis, int geld);
 };

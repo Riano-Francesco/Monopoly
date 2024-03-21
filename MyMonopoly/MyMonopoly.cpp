@@ -8,6 +8,7 @@ int main() {
 	locale::global(locale(""));		// für Umlaute
 	bool abbruch;
 	do {
+		srand(time(NULL));			    					// Random seed = pseudo Algorythmus für zufällige generation einer Zahl
 
 		startGame();
 

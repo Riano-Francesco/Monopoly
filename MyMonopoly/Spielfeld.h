@@ -18,6 +18,8 @@ public:
 	Spielfeld();
 	~Spielfeld();
 
+	void Logik();
+
 	Karte felder[40];
 	vector<Spieler> spieler;
 
