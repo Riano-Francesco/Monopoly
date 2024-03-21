@@ -36,9 +36,11 @@ Spielfeld::Spielfeld() {
 			felder[i].streetName = lines;
 			felder[i].preis = preis;
 		}
-		for (auto elem : felder) {
+
+		//For : Each
+		/*for (auto elem : felder) {
 			cout << elem.streetName << " " << elem.preis << endl;
-		}
+		}*/
 	streets.close();
 	price.close();
 }
