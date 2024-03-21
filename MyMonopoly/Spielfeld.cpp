@@ -22,22 +22,23 @@ void Spielfeld::sAnzahl() {
 }
 
 Spielfeld::Spielfeld() {
-	ifstream streets("Straﬂennamen");
+	ifstream streets("Strassennamen");
 	ifstream price("Preise");
 
 		for (int i = 0; i < 40; i++) {
 			string lines;
-			string lines2;hure
+			string lines2;
 
-			
 			getline(streets, lines);
-			
-			int preis = stoi(getline(price, lines2));
+			getline(price, lines2);
+			int preis = stoi(lines2);
 
 			felder[i].streetName = lines;
-			felder[i].preis = lines2;
+			felder[i].preis = preis;
 		}
-	
+		for (auto elem : felder) {
+			cout << elem.streetName << " " << elem.preis << endl;
+		}
 	streets.close();
 	price.close();
 }
