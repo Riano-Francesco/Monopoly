@@ -1,5 +1,5 @@
 #pragma once
-//#include "Spielfeld.h"
+#include "Karte.h"
 #include <string>
 #include <iostream>
 using namespace std;
@@ -16,5 +16,5 @@ public:
     void playerErstellen();
     int würfeln();
     void getBesitzer();
-    void kaufen(string spieler, string sname, int preis, int geld);
+    void kaufen(Karte*, Spieler*);
 };

@@ -1,5 +1,5 @@
 #include "Funktionen.h"
-#include "Spielfeld.h"
+//#include "Spielfeld.h"
 using namespace std;
 
 bool abbruch = false;

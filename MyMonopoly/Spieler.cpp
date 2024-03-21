@@ -26,8 +26,8 @@ int Spieler::würfeln() {
 void Spieler::getBesitzer() {
 }
 
-void Spieler::kaufen(string spieler, string sname, int preis, int geld) {
-    
+void Spieler::kaufen(Karte *feld, Spieler *player) {
+    feld->besitzer = *player;
 }
 
 Spieler::Spieler() {

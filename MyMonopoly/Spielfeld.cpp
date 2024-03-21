@@ -81,7 +81,8 @@ void Spielfeld::Logik() {
 				cout << "Dieses Feld gehört dir." << endl;
 			}
 			else if (felder[spieler[i].position].besitzer.playerName == "Bank") {
-				spieler[i].kaufen();
+				spieler[i].kaufen(&felder[spieler[i].position], &spieler[i]);
+				cout << felder[spieler[i].position].besitzer.playerName << endl;
 			}
 
 		}
