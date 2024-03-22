@@ -5,11 +5,11 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
-#include <stdlib.h>     // für srand und rand
-#include <time.h>		// für time(NULL) = Zeit vom aktuellen System
-
+#include <cstdlib>     // für srand und rand
+#include <ctime>		// für time(NULL) = Zeit vom aktuellen System
 #include "Karte.h"
-//#include "Spieler.h"
+
+#include "Spieler.h"
 
 using namespace std;
 

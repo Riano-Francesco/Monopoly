@@ -1,6 +1,5 @@
 #pragma once
 //#include "Spielfeld.h"
-#include "Spieler.h"
 #include <string>
 #include <iostream>
 using namespace std;
@@ -8,14 +7,14 @@ using namespace std;
 class Karte {
 public:
     Karte();
+    Karte(string sname, int kaufpreis, string farbe, int miete, string bank);
     ~Karte();
-    Karte(string sname, string farbe, int kaufpreis, int miete);
 
     string streetName;
     string farbe;
 
-    int preis;
-    int Miete;
+    int preis{};
+    int Miete{};
 
-    Spieler besitzer;
+    string besitzer;
 };

@@ -1,14 +1,14 @@
 #include <iostream>
-#include <locale> 
-#include "Funktionen.h"
+//#include <locale>
+#include "Header/Funktionen.h"
 
 using namespace std;
 
 int main() {
-	locale::global(locale(""));		// für Umlaute
+	//locale::global(locale(""));		für Umlaute
 	bool abbruch;
 	do {
-		srand(time(NULL));			    					// Random seed = pseudo Algorythmus für zufällige generation einer Zahl
+		srand(time(nullptr));			 // Random seed = pseudo Algorythmus für zufällige generation einer Zahl
 
 		startGame();
 

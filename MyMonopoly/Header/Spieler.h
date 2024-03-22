@@ -1,6 +1,6 @@
 #pragma once
-#include "Karte.h"
 #include <string>
+#include "Karte.h"
 #include <iostream>
 using namespace std;
 
@@ -10,11 +10,12 @@ public:
     ~Spieler();
 
     string playerName;
-    int geld;
-    int position;
+    int geld{};
+    int position{};
 
     void playerErstellen();
-    int würfeln();
+    int wuerfeln();
     void getBesitzer();
-    void kaufen(Karte*, Spieler*);
+    void kaufen(Karte *feld);
+    void bezahlen(Karte *Miete, Spieler *besitzer);
 };

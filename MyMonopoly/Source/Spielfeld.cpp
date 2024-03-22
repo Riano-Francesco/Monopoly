@@ -1,4 +1,4 @@
-#include "Spielfeld.h"
+#include "Header/Spielfeld.h"
 using namespace std;
 
 void Spielfeld::sAnzahl() {
@@ -13,7 +13,7 @@ void Spielfeld::sAnzahl() {
 	}
 	else {
 		for (int i = 0; i < anzahl; i++) {
-			Spieler sp; // Aufruf des Objektes aufgrund des erstellten Konstruktors - bei mehreren mit Parametern arbeiten zum unterscheiden
+			Spieler sp; // Aufruf des Objektes aufgrund des erstellten Konstruktors - bei mehreren mit Parametern arbeiten zum Unterscheiden
 			sp.playerErstellen();
 			spieler.push_back(sp);
 		}
@@ -22,11 +22,13 @@ void Spielfeld::sAnzahl() {
 }
 
 Spielfeld::Spielfeld() {
-	ifstream streets("Strassennamen");
-	ifstream price("Preise");
-	ifstream color("Farbe");
-	ifstream rent("Miete");
-
+	ifstream streets("../Strassennamen.txt");
+	ifstream price("../Preise.txt");
+	ifstream color("../Farbe.txt");
+	ifstream rent("../Miete.txt");
+//    if (!streets || !price || !color || !rent){
+//        cout << "Leck mich";
+//    }
 		for (int i = 0; i < 40; i++) {
 			string lines;
 			string lines2;
@@ -43,27 +45,23 @@ Spielfeld::Spielfeld() {
 			getline(rent, lines4);
 			int mieten = stoi(lines4);
 
-			Spieler bank;
-			bank.playerName = "Bank"; // Bank Spieler erstellt
 
-			felder[i].streetName = lines;
-			felder[i].preis = preis;
-			felder[i].farbe = lines3;
-			felder[i].Miete = mieten;
-			felder[i].besitzer = bank;
+			string bank = "Bank"; // Bank Spieler erstellt
+
+            //auto Karten = Karte(lines, preis, lines3, mieten, bank);
+            felder[i] = Karte(lines, preis, lines3, mieten, bank);
 		}
 
 		//For : Each
 		/*for (auto elem : felder) {
-			cout << elem.streetName << " " << elem.preis << " " << elem.farbe << " " << elem.Miete << endl;
+			cout << elem.streetName << " " << elem.preis << " " << elem.farbe << " " << elem.Miete.txt << endl;
 		}*/
 	streets.close();
 	price.close();
 	color.close();
 	rent.close();
 }
-Spielfeld::~Spielfeld() {
-}
+Spielfeld::~Spielfeld() = default;
 
 void Spielfeld::Logik() {
 	/*int i = 0;
@@ -74,17 +72,19 @@ void Spielfeld::Logik() {
 	{
 		for (int i = 0; i < spieler.size(); i++) {
 			cout << spieler[i].playerName << " hat gewürfelt: " << endl;
-			spieler[i].position += spieler[i].würfeln(); // Um die Position entsprechend der gewürfelten Summe zu verändern.
-			spieler[i].position = spieler[i].position % 40; // Range von 0 - 39
+			spieler[i].position += spieler[i].wuerfeln(); // Um die Position entsprechend der gewürfelten Summe zu verändern.
+			spieler[i].position = spieler[i].position % 40; // Range von 0 bis 39
 
-			if (felder[spieler[i].position].besitzer.playerName == spieler[i].playerName) {
+
+			if (felder[spieler[i].position].besitzer == spieler[i].playerName) {
 				cout << "Dieses Feld gehört dir." << endl;
 			}
-			else if (felder[spieler[i].position].besitzer.playerName == "Bank") {
-				spieler[i].kaufen(&felder[spieler[i].position], &spieler[i]);
-				cout << felder[spieler[i].position].besitzer.playerName << endl;
-			}
+			else if (felder[spieler[i].position].besitzer == "Bank") {
+				spieler[i].kaufen(&felder[spieler[i].position]);
+				cout << felder[spieler[i].position].besitzer << endl;
+			} else {
 
+            }
 		}
 
 	} while (spieler.size() != 1);

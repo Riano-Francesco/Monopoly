@@ -1,37 +1,39 @@
-#include "Spieler.h"
+#include "Header/Spieler.h"
 
 void Spieler::playerErstellen() {   
     cout << "Bitte Vornamen eingeben: ";
     cin >> playerName; // im Objekt definiert und kann genutzt werden - wird in sp hinterlegt.
     this->geld = 10000;
     this->position = 0;
-    cout << "Spieler wurde hinzugefügt.\n\n";
+    cout << "Spieler wurde hinzugefuegt.\n\n";
     
 }
 
-int Spieler::würfeln() {
-    int würfeln1;
-    int würfeln2;
+int Spieler::wuerfeln() {
+    int wuerfeln1;
+    int wuerfeln2;
 
-    würfeln1 = rand() % 6 + 1;							// pseudo Algorythmus Zahl zwischen 1 & 6					
-    würfeln2 = rand() % 6 + 1;
+    wuerfeln1 = rand() % 6 + 1;							// pseudo Algorithmus Zahl zwischen 1 & 6
+    wuerfeln2 = rand() % 6 + 1;
 
-    cout << "Erster Würfel: " << würfeln1 << endl;
-    cout << "Zweiter Würfel: " << würfeln2 << endl;
-    cout << "Schritte vorgehen: " << würfeln1 + würfeln2 << endl << endl;
+    cout << "Erster Wuerfel: " << wuerfeln1 << endl;
+    cout << "Zweiter Wuerfel: " << wuerfeln2 << endl;
+    cout << "Schritte vorgehen: " << wuerfeln1 + wuerfeln2 << endl << endl;
 
-    return würfeln1 + würfeln2;
+    return wuerfeln1 + wuerfeln2;
 }
 
 void Spieler::getBesitzer() {
 }
 
-void Spieler::kaufen(Karte *feld, Spieler *player) {
-    feld->besitzer = *player;
+void Spieler::kaufen(Karte *feld) {
+    feld->besitzer = this->playerName;
+    this->geld -= feld->preis;   // Das Objekt welches die Funktion aufruft. Spieler ruft Kaufen auf
 }
 
-Spieler::Spieler() {
+void Spieler::bezahlen(Karte *Miete, Spieler *besitzer) {
 
 }
-Spieler::~Spieler() {
-}
+
+Spieler::Spieler() = default;
+Spieler::~Spieler() = default;
