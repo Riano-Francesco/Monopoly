@@ -101,7 +101,7 @@ void Spielfeld::Logik() {
                     continue;
                 }
 				spieler[i].kaufen(&felder[spieler[i].position]); // Wenn Bank besitzer ist kann Spieler feld kaufen -> Methodenaufruf
-//				cout << felder[spieler[i].position].besitzer << endl; // Ausgabe Besitzer
+                //  cout << felder[spieler[i].position].besitzer << endl; // Ausgabe Besitzer
 			} else {
                 int tempbesitzer = spieler[i].getBesitzer(&felder[spieler[i].position], &spieler); // Zum Zwischenspeichern des Besitzers
                 if (spieler[i].geld < felder[spieler[i].position].Miete) { // Abfrage wenn Miete nicht bezahlbar ist
