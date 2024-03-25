@@ -71,20 +71,34 @@ void Spielfeld::Logik() {
 	do
 	{
 		for (int i = 0; i < spieler.size(); i++) {
-			cout << spieler[i].playerName << " hat gewürfelt: " << endl;
+			cout << spieler[i].playerName << " hat gewuerfelt: " << endl;
 			spieler[i].position += spieler[i].wuerfeln(); // Um die Position entsprechend der gewürfelten Summe zu verändern.
-			spieler[i].position = spieler[i].position % 40; // Range von 0 bis 39
+//			spieler[i].position = spieler[i].position % 40; // Range von 0 bis 39
+            if (spieler[i].position > 39) {
+                spieler[i].position -= 40;
+                spieler[i].geld += 200;
+                cout << "Sie sind über Los gegangen und haben 200 erhalten." << endl;
+            }
 
 
 			if (felder[spieler[i].position].besitzer == spieler[i].playerName) {
-				cout << "Dieses Feld gehört dir." << endl;
+				cout << "Dieses Feld gehoert " << spieler[spieler[i].getBesitzer(&felder[spieler[i].position], &spieler)].playerName << endl;
 			}
 			else if (felder[spieler[i].position].besitzer == "Bank") {
+                if (felder[spieler[i].position].preis == 0){
+                    continue;
+                }
 				spieler[i].kaufen(&felder[spieler[i].position]);
 				cout << felder[spieler[i].position].besitzer << endl;
 			} else {
-
+                int tempbesitzer = spieler[i].getBesitzer(&felder[spieler[i].position], &spieler);
+                if (spieler[i].geld < felder[spieler[i].position].Miete) {
+                    cout << "Sie haben nicht genug Geld. Bitte verkaufen Sie Strassen bis Sie genug Geld haben!" << endl;
+                    spieler[i].verkaufen(Karte &felder);
+                }
+                spieler[i].bezahlen(&felder[spieler[i].position], &spieler[tempbesitzer]);
             }
+            cout << endl;
 		}
 
 	} while (spieler.size() != 1);

@@ -1,7 +1,8 @@
 #pragma once
-#include <string>
 #include "Karte.h"
 #include <iostream>
+#include <string>
+#include <vector>
 using namespace std;
 
 class Spieler {
@@ -12,10 +13,12 @@ public:
     string playerName;
     int geld{};
     int position{};
+    bool gameOver = false;
 
     void playerErstellen();
     int wuerfeln();
-    void getBesitzer(Karte *feld, vector < Spieler > *spieler);
+    int getBesitzer(Karte *feld, vector < Spieler > *spieler);
     void kaufen(Karte *feld);
+    void verkaufen(Karte *feld);
     void bezahlen(Karte *feld, Spieler *besitzer);
 };
