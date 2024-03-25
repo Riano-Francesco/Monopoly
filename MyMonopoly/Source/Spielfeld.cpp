@@ -14,7 +14,7 @@ void Spielfeld::sAnzahl() {
 	else {
 		for (int i = 0; i < anzahl; i++) {
 			Spieler sp; // Aufruf des Objektes aufgrund des erstellten Konstruktors - bei mehreren mit Parametern arbeiten zum Unterscheiden
-			sp.playerErstellen();
+			sp.playerErstellen(); // Methodenaufruf
 			spieler.push_back(sp);
 		}
 		cout << "Insgesamt " << anzahl << " Spieler nehmen teil.\n\n";
@@ -26,9 +26,7 @@ Spielfeld::Spielfeld() {
 	ifstream price("../Preise.txt");
 	ifstream color("../Farbe.txt");
 	ifstream rent("../Miete.txt");
-//    if (!streets || !price || !color || !rent){
-//        cout << "Leck mich";
-//    }
+
 		for (int i = 0; i < 40; i++) {
 			string lines;
 			string lines2;
@@ -48,8 +46,7 @@ Spielfeld::Spielfeld() {
 
 			string bank = "Bank"; // Bank Spieler erstellt
 
-            //auto Karten = Karte(lines, preis, lines3, mieten, bank);
-            felder[i] = Karte(lines, preis, lines3, mieten, bank);
+            felder[i] = Karte(lines, preis, lines3, mieten, bank); // Inhalt der TXT in Array speichern
 		}
 
 		//For : Each
@@ -64,43 +61,67 @@ Spielfeld::Spielfeld() {
 Spielfeld::~Spielfeld() = default;
 
 void Spielfeld::Logik() {
-	/*int i = 0;
-	if (i == spieler.size()) {
-		i = 0;
-	}*/
+
+    int rounds = 0;
 	do
 	{
 		for (int i = 0; i < spieler.size(); i++) {
+            cout << endl;
+            if (spieler[i].gameOver) {
+                continue;
+            }
+
+            int plAnz = 0;
+            int gewinner = 0;
+            for (int i = 0; i < spieler.size(); i++) {
+                if (!spieler[i].gameOver) {
+                    plAnz++;
+                    gewinner = i;
+                }
+            }
+            if (plAnz == 1) {
+                cout << spieler[gewinner].playerName <<" hat gewonnen.";
+                return;
+            }
+
 			cout << spieler[i].playerName << " hat gewuerfelt: " << endl;
 			spieler[i].position += spieler[i].wuerfeln(); // Um die Position entsprechend der gewürfelten Summe zu verändern.
 //			spieler[i].position = spieler[i].position % 40; // Range von 0 bis 39
-            if (spieler[i].position > 39) {
+            if (spieler[i].position > 39) { // Selbsterklärend für LOS
                 spieler[i].position -= 40;
                 spieler[i].geld += 200;
-                cout << "Sie sind über Los gegangen und haben 200 erhalten." << endl;
+                cout << "Sie sind über LOS gegangen und haben 200 erhalten." << endl;
             }
 
-
-			if (felder[spieler[i].position].besitzer == spieler[i].playerName) {
+			if (felder[spieler[i].position].besitzer == spieler[i].playerName) { // Abfrage, ob aktuelle Position mir gehört
 				cout << "Dieses Feld gehoert " << spieler[spieler[i].getBesitzer(&felder[spieler[i].position], &spieler)].playerName << endl;
 			}
-			else if (felder[spieler[i].position].besitzer == "Bank") {
-                if (felder[spieler[i].position].preis == 0){
+			else if (felder[spieler[i].position].besitzer == "Bank") { // Abfrage, ob Besitzer Bank ist
+                if (felder[spieler[i].position].preis == 0){ // Um Ereignis-, Gemeinschaftsfelder etc. zu überspringen
                     continue;
                 }
-				spieler[i].kaufen(&felder[spieler[i].position]);
-				cout << felder[spieler[i].position].besitzer << endl;
+				spieler[i].kaufen(&felder[spieler[i].position]); // Wenn Bank besitzer ist kann Spieler feld kaufen -> Methodenaufruf
+//				cout << felder[spieler[i].position].besitzer << endl; // Ausgabe Besitzer
 			} else {
-                int tempbesitzer = spieler[i].getBesitzer(&felder[spieler[i].position], &spieler);
-                if (spieler[i].geld < felder[spieler[i].position].Miete) {
+                int tempbesitzer = spieler[i].getBesitzer(&felder[spieler[i].position], &spieler); // Zum Zwischenspeichern des Besitzers
+                if (spieler[i].geld < felder[spieler[i].position].Miete) { // Abfrage wenn Miete nicht bezahlbar ist
                     cout << "Sie haben nicht genug Geld. Bitte verkaufen Sie Strassen bis Sie genug Geld haben!" << endl;
-                    spieler[i].verkaufen(Karte &felder);
+                    bool kannbezahlen = spieler[i].verkaufen(this->felder); // Methodenaufruf zum Straßenverkauf wenn Geld für Miete nicht ausreicht
+                    if(!kannbezahlen) {
+                        cout << spieler[i].playerName << " ist Pleite. Sie haben Verloren!" << endl; // Kann er nicht bezahlen ist er Pleite
+                        spieler[i].gameOver = true;
+                        continue;
+                    } else {
+                        spieler[i].bezahlen(&felder[spieler[i].position], &spieler[tempbesitzer]); // Kann er nach Verkauf bezahlen -> Methodenaufruf
+                    }
+                } else {
+                    spieler[i].bezahlen(&felder[spieler[i].position], &spieler[tempbesitzer]); // Wenn er nicht verkaufen muss bezahlt er einfach Miete
                 }
-                spieler[i].bezahlen(&felder[spieler[i].position], &spieler[tempbesitzer]);
             }
             cout << endl;
 		}
-
+        rounds++;
+        cout << "Runde " << rounds << " beendet." << endl;
 	} while (spieler.size() != 1);
 }
 

@@ -19,6 +19,6 @@ public:
     int wuerfeln();
     int getBesitzer(Karte *feld, vector < Spieler > *spieler);
     void kaufen(Karte *feld);
-    void verkaufen(Karte *feld);
+    bool verkaufen(Karte *feld);
     void bezahlen(Karte *feld, Spieler *besitzer);
 };
