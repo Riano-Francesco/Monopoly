@@ -15,7 +15,7 @@ public:
 
     void playerErstellen();
     int wuerfeln();
-    void getBesitzer();
+    void getBesitzer(Karte *feld, vector < Spieler > *spieler);
     void kaufen(Karte *feld);
-    void bezahlen(Karte *Miete, Spieler *besitzer);
+    void bezahlen(Karte *feld, Spieler *besitzer);
 };

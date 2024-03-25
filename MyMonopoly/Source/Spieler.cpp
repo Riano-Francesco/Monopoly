@@ -23,7 +23,11 @@ int Spieler::wuerfeln() {
     return wuerfeln1 + wuerfeln2;
 }
 
-void Spieler::getBesitzer() {
+int Spieler::getBesitzer(Karte *feld, vector < Spieler > *spieler) {
+    for (int i = 0; i < spieler.sizeof()) {
+
+    }
+    return;
 }
 
 void Spieler::kaufen(Karte *feld) {
@@ -31,8 +35,9 @@ void Spieler::kaufen(Karte *feld) {
     this->geld -= feld->preis;   // Das Objekt welches die Funktion aufruft. Spieler ruft Kaufen auf
 }
 
-void Spieler::bezahlen(Karte *Miete, Spieler *besitzer) {
-
+void Spieler::bezahlen(Karte *feld, Spieler *besitzer) {
+    this->geld -= feld->Miete;
+    besitzer->geld += feld->Miete;
 }
 
 Spieler::Spieler() = default;
