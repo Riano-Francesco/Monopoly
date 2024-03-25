@@ -67,12 +67,14 @@ void Spielfeld::Logik() {
 	{
 		for (int i = 0; i < spieler.size(); i++) {
             cout << endl;
+
             if (spieler[i].gameOver) {
                 continue;
             }
 
             int plAnz = 0;
             int gewinner = 0;
+
             for (int i = 0; i < spieler.size(); i++) {
                 if (!spieler[i].gameOver) {
                     plAnz++;
@@ -87,6 +89,7 @@ void Spielfeld::Logik() {
 			cout << spieler[i].playerName << " hat gewuerfelt: " << endl;
 			spieler[i].position += spieler[i].wuerfeln(); // Um die Position entsprechend der gewürfelten Summe zu verändern.
 //			spieler[i].position = spieler[i].position % 40; // Range von 0 bis 39
+
             if (spieler[i].position > 39) { // Selbsterklärend für LOS
                 spieler[i].position -= 40;
                 spieler[i].geld += 200;
@@ -97,6 +100,7 @@ void Spielfeld::Logik() {
 				cout << "Dieses Feld gehoert " << spieler[spieler[i].getBesitzer(&felder[spieler[i].position], &spieler)].playerName << endl;
 			}
 			else if (felder[spieler[i].position].besitzer == "Bank") { // Abfrage, ob Besitzer Bank ist
+
                 if (felder[spieler[i].position].preis == 0){ // Um Ereignis-, Gemeinschaftsfelder etc. zu überspringen
                     continue;
                 }
@@ -104,9 +108,11 @@ void Spielfeld::Logik() {
                 //  cout << felder[spieler[i].position].besitzer << endl; // Ausgabe Besitzer
 			} else {
                 int tempbesitzer = spieler[i].getBesitzer(&felder[spieler[i].position], &spieler); // Zum Zwischenspeichern des Besitzers
+
                 if (spieler[i].geld < felder[spieler[i].position].Miete) { // Abfrage wenn Miete nicht bezahlbar ist
                     cout << "Sie haben nicht genug Geld. Bitte verkaufen Sie Strassen bis Sie genug Geld haben!" << endl;
                     bool kannbezahlen = spieler[i].verkaufen(this->felder); // Methodenaufruf zum Straßenverkauf wenn Geld für Miete nicht ausreicht
+
                     if(!kannbezahlen) {
                         cout << spieler[i].playerName << " ist Pleite. Sie haben Verloren!" << endl; // Kann er nicht bezahlen ist er Pleite
                         spieler[i].gameOver = true;
